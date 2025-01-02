@@ -3,8 +3,8 @@ FactoryBot.define do
     teacher { nil }
     subject { nil }
     classroom { nil }
-    start_time { "2025-01-02 14:35:02" }
-    end_time { "2025-01-02 14:35:02" }
-    days { "MyString" }
+    start_time { Time.zone.parse("7:30 AM") }
+    end_time { Time.zone.parse("8:20 AM") }
+    days { [ "Monday" ] }
   end
 end
