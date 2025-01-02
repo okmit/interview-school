@@ -19,6 +19,9 @@ RSpec.describe Api::V1::Students::SectionsController, type: :controller do
 
   describe "DELETE #remove" do
     context 'reponse created' do
+      before do
+        section.section_students.create(student: student)
+      end
       it 'return success response' do
         delete :remove, params: { student_id: student.id, section_id: section.id }, format: :json
 

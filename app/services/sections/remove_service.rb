@@ -44,7 +44,7 @@ module Sections
     def response
       {
         success: !errors?,
-          errors: errors
+        errors: errors
       }
     end
 

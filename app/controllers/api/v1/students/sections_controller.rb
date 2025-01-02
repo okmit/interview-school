@@ -12,9 +12,14 @@ module Api
           end
         end
 
-        # TODO
         def remove
-          render json: {}, status: :ok
+          result = Sections::RemoveService.new(section_id: params[:section_id], student_id: params[:student_id]).call
+
+          if result[:success]
+            render json: { message: "The section was removed from the schedule successfully" }, status: :ok
+          else
+            render json: { errors: result[:errors] }, status: :unprocessable_entity
+          end
         end
       end
     end
