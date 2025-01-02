@@ -62,8 +62,8 @@ module Sections
     def response_data
       return if errors?
       {
-        student: {},
-        section: {}
+        section: SectionSerializer.new(section).serializable_hash[:data][:attributes],
+        student: StudentSerializer.new(student).serializable_hash[:data][:attributes]
       }
     end
 

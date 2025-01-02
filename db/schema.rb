@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_02_133055) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "section_students", id: false, force: :cascade do |t|
+  create_table "section_students", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.bigint "student_id", null: false
     t.datetime "created_at", null: false
