@@ -47,3 +47,6 @@ end
 group :test do
   gem 'shoulda-matchers'
 end
+
+gem "jsonapi-serializer"
+gem 'prawn'
