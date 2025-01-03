@@ -4,7 +4,7 @@ module Api
       class SchedulesController < ApplicationController
         # TODO
         def download
-           send_data nil, filename: "schedule.pdf", type: "application/pdf"
+          send_data nil, filename: "schedule.pdf", type: "application/pdf"
         end
       end
     end

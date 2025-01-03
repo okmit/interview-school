@@ -20,7 +20,7 @@ RSpec.describe Sections::RemoveService, type: :service do
 
   describe '#call' do
     before do
-      section.section_students.create(student: student)
+      section.students << student
     end
 
     context 'when the section and student exist' do
@@ -29,7 +29,11 @@ RSpec.describe Sections::RemoveService, type: :service do
 
         expect(result[:success]).to be(true)
         expect(result[:errors]).to be_empty
-        expect(SectionStudent.exists?(section: section, student: student)).to be(false)
+        expect(
+          ActiveRecord::Base
+            .connection.execute("SELECT COUNT(*) FROM sections_students WHERE section_id = #{section.id} AND student_id=#{student.id}")
+            .first["count"]
+        ).to eq(0)
       end
     end
   end

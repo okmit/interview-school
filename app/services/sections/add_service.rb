@@ -23,7 +23,7 @@ module Sections
 
       return if errors?
 
-      if section.section_students.exists?(student: student)
+      if section.students.exists?(id: student.id)
         errors << { message: "Section for student exist" }
       end
 
@@ -44,10 +44,8 @@ module Sections
     def save
       return if errors?
 
-      section_student = section.section_students.build(student: student)
-
-      unless section_student.save
-        errors.concat(section_student.errors.full_messages.map { |msg| { message: msg } })
+      unless section.students << student
+        errors.concat(section.errors.full_messages.map { |msg| { message: msg } })
       end
     end
 

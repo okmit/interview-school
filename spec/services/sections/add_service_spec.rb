@@ -43,13 +43,17 @@ RSpec.describe Sections::AddService, type: :service do
 
         expect(result[:success]).to be(true)
         expect(result[:errors]).to be_empty
-        expect(SectionStudent.exists?(section_id: section_one.id, student_id: student.id)).to be(true)
+        expect(
+          ActiveRecord::Base
+            .connection.execute("SELECT COUNT(*) FROM sections_students WHERE section_id = #{section_one.id} AND student_id=#{student.id}")
+            .first["count"]
+        ).to eq(1)
       end
     end
 
     context "student coudn't add section to schedule" do
       before do
-        section_overlap.section_students.create(student: student)
+        section_overlap.students << student
       end
 
       it 'returns an error' do

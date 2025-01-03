@@ -23,7 +23,7 @@ module Sections
 
       return if errors?
 
-      unless section_student
+      unless section.students.exists?(id: student.id)
         errors << { message: "Section for student does not exists" }
       end
     end
@@ -32,13 +32,9 @@ module Sections
     def remove
       return if errors?
 
-      unless section_student.destroy
-        errors.concat(section_student.errors.full_messages.map { |msg| { message: msg } })
+      unless section.students.delete(student)
+        errors.concat(section.errors.full_messages.map { |msg| { message: msg } })
       end
-    end
-
-    def section_student
-      @section_student ||= section.section_students.find_by(student: student)
     end
 
     def response
